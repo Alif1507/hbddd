@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Happy 18th Birthday 💗</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Rubik+Mono+One&family=Playfair+Display:wght@900&family=Bungee&family=Special+Elite&family=Nunito:wght@700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7b6c8;
+      --ink: #1e1b1b;
+      --paper: #f6efe3;
+      --red: #c8283c;
+      --pink: #e8719a;
+      --soft: #f7b6c8;
+      --shadow: rgba(0, 0, 0, .28);
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px)
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #3a1a28;
+        --soft: #e8719a
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #3a1a28;
+      --soft: #e8719a
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Nunito', sans-serif;
+      color: var(--ink);
+      overflow: hidden;
+      touch-action: manipulation
+    }
+
+    .gingham {
+      background:
+        repeating-linear-gradient(0deg, rgba(200, 40, 60, .55) 0 22px, transparent 22px 44px),
+        repeating-linear-gradient(90deg, rgba(200, 40, 60, .55) 0 22px, transparent 22px 44px), #fff
+    }
+
+    #app {
+      position: relative;
+      max-width: 480px;
+      height: 100%;
+      margin: 0 auto;
+      overflow: hidden
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .5s
+    }
+
+    .screen.on {
+      opacity: 1;
+      pointer-events: auto
+    }
+
+    h2 {
+      font-family: 'Caveat', cursive;
+      font-size: 2.1rem;
+      margin: 0 0 6px;
+      text-align: center
+    }
+
+    .sub {
+      margin: 0 0 10px;
+      font-weight: 800;
+      text-align: center
+    }
+
+    .btn {
+      font: 800 1.15rem 'Nunito', sans-serif;
+      border: 0;
+      border-radius: 99px;
+      background: var(--pink);
+      color: #fff;
+      padding: 14px 28px;
+      box-shadow: 0 5px 0 #b44a73, 0 8px 14px var(--shadow);
+      cursor: pointer
+    }
+
+    .btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #b44a73
+    }
+
+    .pulse {
+      animation: pulse 1.4s infinite
+    }
+
+    @keyframes pulse {
+      50% {
+        transform: scale(1.07)
+      }
+    }
+
+    #mute {
+      position: absolute;
+      top: calc(10px + env(safe-area-inset-top, 0px));
+      right: 10px;
+      z-index: 20;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 0;
+      background: #fff;
+      font-size: 1.2rem;
+      box-shadow: 0 2px 6px var(--shadow);
+      display: none;
+      cursor: pointer
+    }
+
+    /* card */
+    .card {
+      position: relative;
+      width: min(82vw, 340px);
+      aspect-ratio: 3/4;
+      background: var(--paper);
+      border-radius: 6px 14px 8px 12px;
+      box-shadow: 0 12px 30px var(--shadow);
+      transform: rotate(-2deg);
+      overflow: hidden;
+      background-image: radial-gradient(rgba(0, 0, 0, .05) 1px, transparent 1px);
+      background-size: 4px 4px
+    }
+
+    .heart {
+      --m: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 90'><path d='M50 88C20 62 2 44 2 26 2 12 13 2 26 2c10 0 19 5 24 14C55 7 64 2 74 2c13 0 24 10 24 24 0 18-18 36-48 62z'/></svg>");
+      -webkit-mask: var(--m) center/contain no-repeat;
+      mask: var(--m) center/contain no-repeat
+    }
+
+    .card .heart {
+      position: absolute;
+      left: 14%;
+      right: 14%;
+      top: 23%;
+      height: 48%
+    }
+
+    .ransom {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: 2
+    }
+
+    .ransom span {
+      display: inline-block;
+      padding: 1px 6px;
+      font-size: 1.7rem;
+      line-height: 1.1;
+      background: #fff;
+      border-radius: 3px;
+      box-shadow: 0 1px 3px var(--shadow)
+    }
+
+    .ransom.sp {
+      background: none
+    }
+
+    .stk {
+      position: absolute;
+      font-size: 2rem;
+      filter: drop-shadow(0 0 0 #fff) drop-shadow(1px 1px 0 #fff) drop-shadow(-1px -1px 0 #fff) drop-shadow(0 2px 3px var(--shadow));
+      cursor: pointer;
+      user-select: none;
+      transition: transform .2s
+    }
+
+    .stk:active {
+      transform: rotate(12deg) scale(1.25)
+    }
+
+    .stk.pop {
+      animation: stkin .45s both
+    }
+
+    @keyframes stkin {
+      0% {
+        transform: scale(0)
+      }
+
+      70% {
+        transform: scale(1.25)
+      }
+
+      100% {
+        transform: scale(1)
+      }
+    }
+
+    /* step1 */
+    #s1 {
+      justify-content: flex-start;
+      padding-top: 70px
+    }
+
+    #field {
+      position: absolute;
+      inset: 0;
+      overflow: hidden
+    }
+
+    .bal {
+      position: absolute;
+      bottom: -130px;
+      animation: rise var(--d) linear infinite;
+      animation-delay: var(--dl);
+      cursor: pointer
+    }
+
+    .bal i {
+      display: block;
+      width: 62px;
+      height: 76px;
+      border-radius: 50% 50% 48% 48%;
+      background: radial-gradient(circle at 32% 28%, #fff9 0 8%, transparent 9%), var(--c);
+      box-shadow: inset -6px -8px 12px rgba(0, 0, 0, .15);
+      position: relative;
+      animation: sway 2.4s ease-in-out infinite alternate
+    }
+
+    .bal i:after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -30px;
+      width: 2px;
+      height: 30px;
+      background: #0004
+    }
+
+    @keyframes rise {
+      to {
+        transform: translateY(-125vh)
+      }
+    }
+
+    @keyframes sway {
+      from {
+        margin-left: -14px
+      }
+
+      to {
+        margin-left: 14px
+      }
+    }
+
+    #count {
+      position: relative;
+      z-index: 3;
+      background: #fff;
+      border-radius: 99px;
+      padding: 4px 14px;
+      font-weight: 800
+    }
+
+    /* step2 */
+    .cup {
+      position: relative;
+      font-size: 7rem;
+      line-height: 1;
+      margin-top: 60px
+    }
+
+    .candle {
+      position: absolute;
+      left: 50%;
+      top: -46px;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 50px;
+      background: repeating-linear-gradient(45deg, #fff 0 6px, var(--pink) 6px 12px);
+      border-radius: 3px
+    }
+
+    .flame {
+      position: absolute;
+      left: 50%;
+      top: -34px;
+      width: 20px;
+      height: 34px;
+      margin-left: -10px;
+      border-radius: 50% 50% 50% 50%/60% 60% 40% 40%;
+      background: radial-gradient(#fff 10%, #ffd23f 45%, #ff7a18 100%);
+      transform-origin: 50% 100%;
+      animation: fl .15s infinite alternate;
+      box-shadow: 0 0 30px 10px #ffb34755;
+      transition: opacity .4s
+    }
+
+    @keyframes fl {
+      from {
+        transform: scale(.92, 1.05) rotate(-3deg)
+      }
+
+      to {
+        transform: scale(1.05, .92) rotate(3deg)
+      }
+    }
+
+    .out .flame {
+      opacity: 0;
+      animation: none
+    }
+
+    .smoke {
+      position: absolute;
+      left: 50%;
+      top: -60px;
+      font-size: 2rem;
+      opacity: 0
+    }
+
+    .out .smoke {
+      animation: smoke 1.6s
+    }
+
+    @keyframes smoke {
+      0% {
+        opacity: .8;
+        transform: translateY(0)
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-70px) scale(1.8)
+      }
+    }
+
+    .meter {
+      width: 180px;
+      height: 10px;
+      background: #fff8;
+      border-radius: 9px;
+      overflow: hidden;
+      margin: 14px 0
+    }
+
+    .meter b {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--pink);
+      transition: width .08s
+    }
+
+    /* step3 */
+    #hbox {
+      position: relative;
+      width: min(82vw, 340px);
+      aspect-ratio: 3/4;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px var(--shadow);
+      touch-action: none
+    }
+
+    #hbox .back {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      background: var(--paper);
+      transition: transform .45s cubic-bezier(.3, 1.4, .5, 1);
+      z-index: 2;
+      overflow: hidden
+    }
+
+    .flap.l {
+      left: 0;
+      border-right: 2px dashed #0002
+    }
+
+    .flap.r {
+      right: 0
+    }
+
+    .flap .ransom {
+      width: 200%
+    }
+
+    .flap.r .ransom {
+      margin-left: -100%
+    }
+
+    #hint {
+      position: absolute;
+      bottom: 14px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      z-index: 3;
+      font-weight: 800;
+      animation: pulse 1.4s infinite;
+      pointer-events: none
+    }
+
+    /* final */
+    #s4 {
+      justify-content: flex-end;
+      padding: 16px 16px 12px;
+      overflow: hidden
+    }
+
+    #s4::before {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 60%;
+      background: linear-gradient(transparent, rgba(30, 10, 20, .82));
+      z-index: 1;
+      pointer-events: none
+    }
+
+    #s4>*:not(#frame) {
+      position: relative;
+      z-index: 2
+    }
+
+    #frame {
+      position: absolute;
+      inset: 0;
+      z-index: 0
+    }
+
+    #frame .heart {
+      position: absolute;
+      inset: 0;
+      -webkit-mask: none;
+      mask: none;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden
+    }
+
+    #frame .heart .gingham {
+      position: absolute;
+      inset: 0
+    }
+
+    #photo {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+      filter: grayscale(1);
+      transition: filter 1s
+    }
+
+    #photo.color {
+      filter: none
+    }
+
+    #ph {
+      position: relative;
+      font-weight: 800;
+      text-align: center;
+      font-size: .95rem;
+      padding: 0 22%
+    }
+
+    #name {
+      margin: 8px 0 4px;
+      position: static;
+      max-width: 100%
+    }
+
+    #msg {
+      font-family: 'Caveat', cursive;
+      font-size: 1.6rem;
+      text-align: center;
+      margin: 6px 10px 10px;
+      color: #fff;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, .6)
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding-bottom: 20px
+    }
+
+    .row .btn {
+      font-size: .95rem;
+      padding: 10px 18px
+    }
+
+    canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 30
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <button id="mute" aria-label="Toggle music">🔊</button>
+
+    <section class="screen on" id="s0">
+      <div class="card" id="cover">
+        <div class="ransom" style="top:5%" data-t="HAPPY"></div>
+        <div class="heart gingham"></div>
+        <div class="ransom" style="bottom:6%" data-t="BIRTHDAY"></div>
+        <span class="stk" style="left:6%;top:3%">🧸</span><span class="stk" style="right:5%;top:2%">⭐</span>
+        <span class="stk" style="left:3%;top:30%">🐹</span><span class="stk" style="right:3%;top:32%">🐰</span>
+        <span class="stk" style="left:5%;top:60%">🌸</span><span class="stk" style="right:6%;top:58%">🥳</span>
+        <span class="stk" style="left:8%;bottom:18%">💋</span><span class="stk" style="right:8%;bottom:18%">🌷</span>
+        <span class="stk" style="left:42%;top:42%;font-size:3rem">💗</span>
+      </div>
+      <button class="btn pulse" id="open" style="margin-top:26px">Open Your Card 💌</button>
+    </section>
+
+    <section class="screen gingham" id="s1">
+      <h2>Pop the balloons!</h2>
+      <div id="count">0 / 10</div>
+      <div id="field"></div>
+    </section>
+
+    <section class="screen" id="s2">
+      <h2>Make a wish…</h2>
+      <p class="sub" id="blowtxt">…and blow out the candle 🕯️</p>
+      <div class="cup" id="cup">
+        <div class="candle"></div>
+        <div class="flame"></div>
+        <div class="smoke">💨</div>🧁
+      </div>
+      <div class="meter"><b id="lvl"></b></div>
+      <button class="btn" id="hold">Press &amp; hold to blow 💨</button>
+    </section>
+
+    <section class="screen" id="s3">
+      <h2>Swipe to open the heart</h2>
+      <p class="sub">Drag the card apart ↔</p>
+      <div id="hbox">
+        <div class="back gingham"><span style="filter:drop-shadow(0 4px 6px var(--shadow));font-size:8rem">💗</span>
+        </div>
+        <div class="flap l" id="fl">
+          <div class="ransom" style="top:8%" data-t="HAPPY"></div>
+          <div class="ransom" style="bottom:8%" data-t="BIRTHDAY"></div><span class="stk"
+            style="left:6%;top:36%">🐹</span><span class="stk" style="left:6%;bottom:30%">🎀</span>
+        </div>
+        <div class="flap r" id="fr">
+          <div class="ransom" style="top:8%" data-t="HAPPY"></div>
+          <div class="ransom" style="bottom:8%" data-t="BIRTHDAY"></div><span class="stk"
+            style="right:6%;top:36%">🐰</span><span class="stk" style="right:6%;bottom:30%">🪩</span>
+        </div>
+        <div id="hint">⟵ swipe ⟶</div>
+      </div>
+    </section>
+
+    <section class="screen gingham" id="s4">
+      <div id="frame">
+        <div class="heart">
+          <div class="gingham"></div><img id="photo" alt="Birthday photo">
+          <div id="ph">📸<br>Add your photo with the button below</div>
+        </div>
+      </div>
+      <div class="ransom" id="name"></div>
+      <p id="msg"></p>
+    </section>
+  </div>
+  <canvas id="cv"></canvas>
+
+  <script>
+    /* ===== EDIT ME ===== */
+    const CONFIG = {
+      name: "TIWII",
+      age: 18,
+      message: "Wishing you the best year ever. Love you! 💗, Boleh aku post gaa gambarnyaa",
+      photo: "/image/selamat ultah ulang tahun, happy birthday.png", // paste a data: URI here to hard-code the final image, or use the Add photo button
+      song: "/song/ssstik.io_1793377003483.mp3"
+    };
+    /* =================== */
+    const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+    const FONTS = ["'Rubik Mono One'", "'Playfair Display'", "Bungee", "'Special Elite'"];
+    const COLS = ["#c8283c", "#1e1b1b", "#e2a93b", "#7fb3e0", "#e8719a", "#2e7d6b"];
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    function ransom(el, t) {
+      el.innerHTML = "";[...t].forEach(c => {
+        if (c === " ") { el.insertAdjacentHTML("beforeend", "<b style='width:10px'></b>"); return }
+        const s = document.createElement("span"); s.textContent = c; s.style.fontFamily = FONTS[Math.random() * 4 | 0]; s.style.color = COLS[Math.random() * 6 | 0];
+        s.style.transform = `rotate(${rnd(-7, 7)}deg)`; s.style.background = Math.random() < .3 ? "#ffe3ec" : "#fff"; el.appendChild(s)
+      })
+    }
+    $$(".ransom[data-t]").forEach(e => ransom(e, e.dataset.t));
+    ransom($("#name"), CONFIG.name); $("#msg").textContent = CONFIG.message;
+    document.title = `Happy ${CONFIG.age}th Birthday 💗`;
+
+    /* ===== audio (synth birthday tune, no files) ===== */
+    let ac, master, muted = false, tuneTimer;
+    const N = { C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392, A4: 440, B4: 493.88, C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99 };
+    const TUNE = [["G4", .75], ["G4", .25], ["A4", 1], ["G4", 1], ["C5", 1], ["B4", 2], ["G4", .75], ["G4", .25], ["A4", 1], ["G4", 1], ["D5", 1], ["C5", 2],
+    ["G4", .75], ["G4", .25], ["G5", 1], ["E5", 1], ["C5", 1], ["B4", 1], ["A4", 1], ["F5", .75], ["F5", .25], ["E5", 1], ["C5", 1], ["D5", 1], ["C5", 2]];
+    function note(f, t, d, v = .18, type = "triangle") {
+      const o = ac.createOscillator(), g = ac.createGain(); o.type = type; o.frequency.value = f;
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + .02); g.gain.exponentialRampToValueAtTime(.001, t + d);
+      o.connect(g); g.connect(master); o.start(t); o.stop(t + d + .05)
+    }
+    function playTune() {
+      const beat = .46; let t = ac.currentTime + .1;
+      TUNE.forEach(([n, b]) => { note(N[n], t, b * beat * .95); note(N[n] / 2, t, b * beat * .95, .08, "sine"); t += b * beat });
+      tuneTimer = setTimeout(playTune, (t - ac.currentTime) * 1000 + 700)
+    }
+    let bgm;
+    function startMusic() {
+      ac = new (window.AudioContext || window.webkitAudioContext)(); master = ac.createGain(); master.gain.value = .7; master.connect(ac.destination); ac.resume();
+      if (CONFIG.song) {
+        bgm = new Audio(CONFIG.song); bgm.loop = true; bgm.volume = .7;
+        // bgm.currentTime=30;  // uncomment to start from second 30
+        bgm.play().catch(playTune);   // falls back to the built-in tune if the file fails
+      } else playTune();
+    }
+    function sfxPop() {
+      if (!ac) return; const n = ac.sampleRate * .12, b = ac.createBuffer(1, n, ac.sampleRate), d = b.getChannelData(0);
+      for (let i = 0; i < n; i++)d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 3); const s = ac.createBufferSource(), g = ac.createGain(); g.gain.value = .8; s.buffer = b; s.connect(g); g.connect(ac.destination); s.start()
+    }
+    function sfxChime() { if (!ac) return; const t = ac.currentTime;[784, 988, 1319, 1568].forEach((f, i) => note(f, t + i * .1, .6, .15, "sine")) }
+   $("#mute").onclick=()=>{muted=!muted;if(master)master.gain.value=muted?0:.7;if(bgm)bgm.muted=muted; $("#mute").textContent = muted ? "🔇" : "🔊" };
+
+    /* ===== flow ===== */
+    function go(id) { $$(".screen").forEach(s => s.classList.remove("on")); $(id).classList.add("on") }
+    $("#open").onclick = () => {
+      startMusic(); $("#mute").style.display = "block";
+      $("#cover").animate([{ transform: "rotate(-2deg) scale(1)" }, { transform: "rotate(4deg) scale(1.15)", opacity: .6 }], { duration: 600, fill: "forwards" });
+      setTimeout(() => { go("#s1"); step1() }, 550)
+    };
+
+    /* confetti */
+    const cv = $("#cv"), cx = cv.getContext("2d"); let parts = [];
+    function size() { cv.width = innerWidth; cv.height = innerHeight } size(); addEventListener("resize", size);
+    function burst(x, y, n = 24, spread = 1) { for (let i = 0; i < n; i++)parts.push({ x, y, vx: rnd(-6, 6) * spread, vy: rnd(-9, -2) * spread, r: rnd(4, 8), c: COLS[Math.random() * 6 | 0], l: 1, rot: rnd(0, 6) }) }
+    (function loop() {
+      cx.clearRect(0, 0, cv.width, cv.height); parts = parts.filter(p => p.l > 0);
+      parts.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += .35; p.l -= .012; p.rot += .2; cx.save(); cx.globalAlpha = Math.max(p.l, 0); cx.translate(p.x, p.y); cx.rotate(p.rot); cx.fillStyle = p.c; cx.fillRect(-p.r / 2, -p.r / 2, p.r, p.r * .6); cx.restore() });
+      requestAnimationFrame(loop)
+    })();
+
+    /* step 1: balloons */
+    const BC = ["#e8719a", "#f7b6c8", "#ffffff", "#c8283c", "#c9ccd3", "#ffd1e3"];
+    function step1() {
+      const f = $("#field"); f.innerHTML = ""; let popped = 0; const total = 10; $("#count").textContent = `0 / ${total}`;
+      for (let i = 0; i < total; i++) {
+        const b = document.createElement("div"); b.className = "bal";
+        b.style.cssText = `left:${rnd(2, 82)}%;--d:${rnd(7, 11)}s;--dl:${-rnd(0, 6)}s;`; b.innerHTML = `<i style="--c:${BC[i % 6]}"></i>`;
+        const hit = e => {
+          e.preventDefault(); if (b.dead) return; b.dead = 1; const r = b.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + 30, 22); sfxPop(); navigator.vibrate && navigator.vibrate(20);
+          b.remove(); popped++; $("#count").textContent = `${popped} / ${total}`; if (popped === total) { chimeGo(() => { go("#s2"); step2() }) }
+        };
+        b.addEventListener("pointerdown", hit); f.appendChild(b)
+      }
+    }
+    function chimeGo(cb) { sfxChime(); burst(innerWidth / 2, innerHeight / 2, 50, 1.4); setTimeout(cb, 900) }
+
+    /* step 2: candle */
+    let blown = false, blowMs = 0, micOK = false;
+    function snuff() { if (blown) return; blown = true; $("#cup").classList.add("out"); sfxChime(); burst(innerWidth / 2, innerHeight / 2, 60, 1.5); setTimeout(() => { go("#s3"); step3() }, 1500) }
+    async function step2() {
+      blown = false; blowMs = 0; $("#cup").classList.remove("out"); $("#lvl").style.width = "0";
+      try {
+        const st = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: false } });
+        const mc = new (window.AudioContext || window.webkitAudioContext)(), an = mc.createAnalyser(); an.fftSize = 256; mc.createMediaStreamSource(st).connect(an);
+        const data = new Uint8Array(an.frequencyBinCount); micOK = true; $("#blowtxt").textContent = "…and blow into your mic 🕯️ (or hold the button)";
+        let last = performance.now(); (function tick() {
+          if (blown) { st.getTracks().forEach(t => t.stop()); mc.close(); return }
+          an.getByteFrequencyData(data); let s = 0; for (let i = 1; i < 12; i++)s += data[i]; const v = s / 11 / 255, now = performance.now();
+          $("#lvl").style.width = Math.min(v * 220, 100) + "%"; $(".flame").style.transform = `scale(1,${Math.max(1 - v, .4)}) rotate(${v * 30}deg)`;
+          if (v > .35) blowMs += now - last; else blowMs = Math.max(0, blowMs - (now - last) * .5); last = now; if (blowMs > 600) snuff(); requestAnimationFrame(tick)
+        })()
+      } catch (e) { micOK = false }
+    }
+    let holdT; const hold = $("#hold");
+    hold.addEventListener("pointerdown", () => { let t = 0; holdT = setInterval(() => { t += 60; $("#lvl").style.width = Math.min(t / 15, 100) + "%"; if (t >= 1500) { clearInterval(holdT); snuff() } }, 60) });
+    ["pointerup", "pointerleave", "pointercancel"].forEach(ev => hold.addEventListener(ev, () => { clearInterval(holdT); if (!blown) $("#lvl").style.width = "0" }));
+
+    /* step 3: open heart */
+    function step3() {
+      const box = $("#hbox"), L = $("#fl"), R = $("#fr"); let sx = null, p = 0;
+      const set = v => { p = Math.max(0, Math.min(1, v)); L.style.transform = `translateX(${-p * 100}%)`; R.style.transform = `translateX(${p * 100}%)` };
+      L.style.transition = R.style.transition = "none"; set(0); requestAnimationFrame(() => { L.style.transition = R.style.transition = "" });
+      box.onpointerdown = e => { sx = e.clientX; box.setPointerCapture(e.pointerId); L.style.transition = R.style.transition = "none" };
+      box.onpointermove = e => { if (sx !== null) { set(Math.abs(e.clientX - sx) / (box.clientWidth * .45)); $("#hint").style.opacity = 0 } };
+      const end = () => {
+        if (sx === null) return; sx = null; L.style.transition = R.style.transition = "";
+        if (p > .55) { set(1); burst(innerWidth / 2, innerHeight / 2, 50, 1.4); sfxChime(); setTimeout(final, 900) } else set(0)
+      };
+      box.onpointerup = box.onpointercancel = end
+    }
+
+    /* final */
+    const STK = ["🧸", "🐹", "🐰", "🌸", "⭐", "🪩", "🎀", "💋", "🧁", "🎈", "🌷", "💗"];
+    function final() {
+      go("#s4"); const f = $("#frame"); $$("#frame .stk").forEach(e => e.remove());
+      const pos = [[0, 4], [82, 2], [-2, 40], [86, 42], [2, 78], [84, 76], [40, -4], [42, 92], [16, 18], [70, 20], [14, 64], [72, 62]];
+      STK.forEach((s, i) => { const e = document.createElement("span"); e.className = "stk pop"; e.textContent = s; e.style.cssText = `left:${pos[i][0]}%;top:${pos[i][1]}%;animation-delay:${i * .08 + .3}s;rotate:${rnd(-14, 14)}deg`; f.appendChild(e) });
+      ransom($("#name"), `HAPPY ${CONFIG.age}TH ${CONFIG.name}!`);
+      setTimeout(() => { burst(innerWidth * .2, innerHeight * .8, 40, 1.6); burst(innerWidth * .8, innerHeight * .8, 40, 1.6) }, 400)
+    }
+    function setPhoto(src) { const p = $("#photo"); p.src = src; p.style.display = "block"; $("#ph").style.display = "none" }
+    if (CONFIG.photo) setPhoto(CONFIG.photo);
+    $("#file").onchange = e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => setPhoto(r.result); r.readAsDataURL(f) };
+    $("#color").onclick = () => $("#photo").classList.toggle("color");
+    $("#replay").onclick = () => { go("#s1"); step1() };
+  </script>
+</body>
+
+</html>
